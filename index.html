@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AbuThaher - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <img src="image/image.png" alt="Mohammad AbuThaher" class="profile-image">
+            <h1>Mohammad AbuThaher</h1>
+            <p>Full Stack Web Developer</p>
+        </div>
+        <nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="about" class="fade-in">
+        <h2>About Me</h2>
+        
+        <div class="about-container">
+            <!-- First Section: Paragraph and Image -->
+            <div class="about-info">
+                <div class="about-text slide-in-right">
+                    <p>
+                        Full Stack Developer with expertise in building robust applications using Spring Boot for backend development and Angular for crafting engaging user interfaces. Proven ability to deliver high-quality, scalable solutions through effective collaboration and problem-solving skills.
+                    </p>
+                </div>
+    
+                <div class="about-image fade-in">
+                    <img src="image/abouUs.jpg" alt="About Us Image" class="profile-image">
+                </div>
+            </div>
+    
+            <!-- Second Section: Remaining Details -->
+            <div class="about-details slide-in-right">
+                <h3><i class="fas fa-map-marker-alt icon"></i> Location</h3>
+                <ul>
+                    <li><i class="fas fa-map-pin icon"></i><strong>Ramallah, Palestine</strong></li>
+                </ul>
+    
+                <h3><i class="fas fa-graduation-cap icon"></i> Education</h3>
+                <ul>
+                    <li><i class="fas fa-university icon"></i><strong>Birzeit University</strong> - Computer Science (2020-2024, Graduate)</li>
+                    <li><i class="fas fa-laptop-code icon"></i><strong>Training in Logistics Company</strong> - Backend Developer (Java Spring Boot, 2024, Finished)</li>
+                </ul>
+    
+                <!-- Clickable Certificate Image -->
+                <img src="image/certificate.jpg" alt="Training Certificate" class="certificate-image fade-in" id="certificate-image">
+    
+                <h3><i class="fas fa-language icon"></i> Languages</h3>
+                <ul>
+                    <li><i class="fas fa-comment-dots icon"></i><strong>Arabic:</strong> Native Language</li>
+                    <li><i class="fas fa-comment-dots icon"></i><strong>English:</strong> Intermediate (B1)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    
+    
+    <section id="skills" class="fade-in">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category slide-in-left">
+                <h3><i class="fas fa-code"></i> Frontend</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> HTML</li>
+                    <li><i class="fas fa-check"></i> CSS</li>
+                    <li><i class="fas fa-check"></i> JavaScript</li>
+                </ul>
+            </div>
+            <div class="skill-category slide-in-right">
+                <h3><i class="fas fa-server"></i> Backend</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Java</li>
+                    <li><i class="fas fa-check"></i> Python</li>
+                    <li><i class="fas fa-check"></i> PHP</li>
+                    <li><i class="fas fa-check"></i> C</li>
+                </ul>
+            </div>
+            <div class="skill-category slide-in-left">
+                <h3><i class="fas fa-database"></i> Database</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Proficient in database design</li>
+                    <li><i class="fas fa-check"></i> MySQL</li>
+                </ul>
+            </div>
+            <div class="skill-category slide-in-right">
+                <h3><i class="fas fa-cogs"></i> Framework</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Angular</li>
+                    <li><i class="fas fa-check"></i> Java Spring Boot</li>
+                    <li><i class="fas fa-check"></i> Android</li>
+                    <li><i class="fas fa-check"></i> RESTful APIs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="fade-in">
+        <h2>Projects</h2>
+        <div class="portfolio">
+            <div class="portfolio-item slide-in-left">
+                <div class="icon"><i class="fas fa-utensils"></i></div>
+                <h3>Mushroom Restaurant System</h3>
+                <p>The Mushroom Restaurant System, coded in JavaFX, streamlines restaurant operations with a user-friendly interface for tasks like reservations management and table orders.</p>
+                <div class="tech-stack">
+                    <span><i class="fab fa-java"></i> Java</span>
+                    <span><i class="fab fa-java"></i> JavaFX</span>
+                    <span><i class="fas fa-database"></i> MySQL</span>
+                </div>
+                <a href="https://github.com/AbuThaher99/Mushroom-Restaurant-System" target="_blank">View Project</a>
+            </div>
+            <div class="portfolio-item slide-in-right">
+                <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+                <h3>4ever Booking Page</h3>
+                <p>4everBooking is a web platform and mobile app designed for both hall owners and customers. Built with React (frontend) and Java Spring Boot (backend), it simplifies venue bookings for events like weddings and parties.</p>
+                <div class="tech-stack">
+                    <span><i class="fab fa-react"></i> React</span>
+                    <span><i class="fab fa-java"></i> Spring Boot</span>
+                    <span><i class="fas fa-database"></i> MySQL</span>
+                </div>
+                <a href="https://github.com/mzlad1/4EverBooking-website" target="_blank">View Project</a>
+            </div>
+            <div class="portfolio-item slide-in-left">
+                <div class="icon"><i class="fas fa-barcode"></i></div>
+                <h3>Sale Barcode System</h3>
+                <p>The Sale-Barcode System streamlines sales by using barcode technology, enabling employees to quickly and accurately add items to transactions via barcode scanning.</p>
+                <div class="tech-stack">
+                    <span><i class="fab fa-java"></i> Java</span>
+                    <span><i class="fab fa-java"></i> JavaFX</span>
+                    <span><i class="fas fa-database"></i> MySQL</span>
+
+                </div>
+                <a href="https://github.com/AbuThaher99/Sale-Barcode-System" target="_blank">View Project</a>
+            </div>
+            <div class="portfolio-item slide-in-right">
+                <div class="icon"><i class="fas fa-hospital"></i></div>
+                <h3>Medical Management System</h3>
+                <p>Developed with Java Spring Boot, this system supports multiple user roles (patients, doctors, admins, etc.) and streamlines healthcare operations, including patient diagnosis, medication management, and payroll.</p>
+                <div class="tech-stack">
+                    <span><i class="fab fa-java"></i> Spring Boot</span>
+                    <span><i class="fas fa-database"></i> MySQL</span>
+                    <span><i class="fas fa-code"></i> Postman</span>
+                </div>
+                <a href="https://github.com/AbuThaher99/Medical-System-Mangment" target="_blank">View Project</a>
+            </div>
+            <div class="portfolio-item slide-in-left">
+                <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>BZU Station Page</h3>
+                <p>BZU Station Page is the go-to spot for Computer Science students, providing quick access to past exams and resources.</p>
+                <div class="tech-stack">
+                    <span><i class="fab fa-html5"></i> HTML</span>
+                    <span><i class="fab fa-css3-alt"></i> CSS</span>
+                    <span><i class="fab fa-js"></i> JavaScript</span>
+                </div>
+                <a href="https://github.com/AbuThaher99/BZU-Station-Page" target="_blank">View Project</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="fade-in">
+        <h2>Contact Me</h2>
+        <div class="contact-info">
+            <div class="contact-item slide-in-left">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email</h3>
+                <p><a href="mailto:mohammadmashhour24@gmail.com">mohammadmashhour24@gmail.com</a></p>
+            </div>
+            <div class="contact-item slide-in-right">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <h3>Phone</h3>
+                <p>+972569482508</p>
+            </div>
+            <div class="contact-item slide-in-left">
+                <div class="icon"><i class="fab fa-linkedin"></i></div>
+                <h3>LinkedIn</h3>
+                <p><a href="https://linkedin.com/in/mohammad-abuthaher-aa68332a0" target="_blank">Connect with me</a></p>
+            </div>
+            <div class="contact-item slide-in-right">
+                <div class="icon"><i class="fab fa-github"></i></div>
+                <h3>GitHub</h3>
+                <p><a href="https://github.com/AbuThaher99" target="_blank">View my projects</a></p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://linkedin.com/in/mohammad-abuthaher-aa68332a0" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/AbuThaher99" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:mohammadmashhour24@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p>&copy; 2025 Mohammad AbuThaher. All rights reserved.</p>
+    </footer>
+
+    <!-- Popup Overlay -->
+    <div class="overlay" id="overlay">
+        <span class="close-btn" id="close-btn">&times;</span>
+        <img src="image/certificate.jpg" alt="Training Certificate">
+    </div>
+</body>
+</html>
