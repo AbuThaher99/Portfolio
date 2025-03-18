@@ -129,41 +129,49 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Scroll animations - Enhanced version with better detection
-    const animateElements = function() {
-        console.log('Checking for elements to animate...');
-        const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
-        
-        elements.forEach(element => {
-            // Check if element already has active class
-            if (!element.classList.contains('active')) {
-                const position = element.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                // If element is in viewport (with buffer)
-                if (position.top < windowHeight - 100) {
-                    console.log('Animating element:', element);
-                    element.classList.add('active');
-                }
-            }
-        });
-    };
+   // Replace your current animateElements function with this one
+// This uses a simpler, more reliable animation approach
 
-    // Initial check for elements in viewport
-    // Delay initial check to ensure DOM is ready and positioned correctly
-    setTimeout(function() {
-        animateElements();
-    }, 300);
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Animation fix loaded');
     
-    // Check on scroll with throttling for better performance
+    // Force initial elements to be visible
+    document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
+        if (isElementInViewport(el)) {
+            el.classList.add('active');
+        }
+    });
+    
+    // Simple check if element is in viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8
+        );
+    }
+    
+    // Better scroll handler with improved throttling
     let scrollTimeout;
     window.addEventListener('scroll', function() {
         if (!scrollTimeout) {
             scrollTimeout = setTimeout(function() {
-                animateElements();
+                document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
+                    if (!el.classList.contains('active') && isElementInViewport(el)) {
+                        el.classList.add('active');
+                        console.log('Animation triggered for', el);
+                    }
+                });
                 scrollTimeout = null;
             }, 100);
         }
     });
+    
+    // Trigger a scroll event to check initial elements
+    setTimeout(function() {
+        window.dispatchEvent(new Event('scroll'));
+    }, 500);
+});
+
 
     // Initialize GSAP ScrollTrigger if available
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
