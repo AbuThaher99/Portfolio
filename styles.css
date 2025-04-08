@@ -28,7 +28,7 @@ body {
     scroll-behavior: smooth;
 }
 
-/* Scrollbar styling */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -42,7 +42,7 @@ body {
     border-radius: 10px;
 }
 
-/* Utilities */
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -129,7 +129,7 @@ body {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Header & Navigation */
+
 header {
     position: fixed;
     top: 0;
@@ -220,7 +220,7 @@ header.scrolled {
     cursor: pointer;
 }
 
-/* Hero Section */
+
 #hero {
     position: relative;
     height: 100vh;
@@ -340,7 +340,7 @@ header.scrolled {
     }
 }
 
-/* About Section */
+
 #about {
     padding: 120px 0;
     position: relative;
@@ -478,7 +478,7 @@ header.scrolled {
     color: #777;
 }
 
-/* Skills Section */
+
 #skills {
     padding: 120px 0;
     background: linear-gradient(135deg, rgba(46, 49, 146, 0.05), rgba(27, 188, 156, 0.05));
@@ -559,7 +559,7 @@ header.scrolled {
     color: var(--accent);
 }
 
-/* Projects Section */
+
 #projects {
     padding: 120px 0;
     background: var(--light);
@@ -702,7 +702,7 @@ header.scrolled {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Contact Section */
+
 #contact {
     padding: 120px 0;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -824,7 +824,7 @@ textarea.form-control {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
+
 footer {
     background: var(--dark);
     color: white;
@@ -894,7 +894,7 @@ footer {
     padding-top: 30px;
 }
 
-/* Modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -939,7 +939,7 @@ footer {
     cursor: pointer;
 }
 
-/* Media Queries */
+
 @media (max-width: 992px) {
     .container {
         padding: 0 20px;
@@ -1038,3 +1038,228 @@ footer {
 }
 
 
+
+
+
+.fade-up, .fade-left, .fade-right {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+}
+
+.fade-left {
+    transform: translateX(-40px);
+}
+
+.fade-right {
+    transform: translateX(40px);
+}
+
+
+.fade-up.active, .fade-left.active, .fade-right.active {
+    opacity: 1 !important;
+    transform: translate(0) !important;
+}
+
+
+.skill-card:nth-child(1) { transition-delay: 0.1s; }
+.skill-card:nth-child(2) { transition-delay: 0.2s; }
+.skill-card:nth-child(3) { transition-delay: 0.3s; }
+.skill-card:nth-child(4) { transition-delay: 0.4s; }
+
+
+.project-card:nth-child(1) { transition-delay: 0.1s; }
+.project-card:nth-child(2) { transition-delay: 0.2s; }
+.project-card:nth-child(3) { transition-delay: 0.3s; }
+.project-card:nth-child(4) { transition-delay: 0.4s; }
+.project-card:nth-child(5) { transition-delay: 0.5s; }
+
+
+.contact-item:nth-child(1) { transition-delay: 0.1s; }
+.contact-item:nth-child(2) { transition-delay: 0.2s; }
+.contact-item:nth-child(3) { transition-delay: 0.3s; }
+.contact-item:nth-child(4) { transition-delay: 0.4s; }
+
+
+@media (min-width: 768px) {
+    .fade-up {
+        transform: translateY(60px);
+    }
+    
+    .fade-left {
+        transform: translateX(-60px);
+    }
+    
+    .fade-right {
+        transform: translateX(60px);
+    }
+}
+/* Project Modal Slideshow Styles */
+.project-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 1000px;
+}
+
+.project-modal-content h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.slide-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Fixed height for the slideshow */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--dark);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.slide-arrow:hover {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.prev-arrow {
+    left: 15px;
+}
+
+.next-arrow {
+    right: 15px;
+}
+
+.slide-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.slide-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slide-dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 0.5s;
+}
+
+@keyframes fade {
+    from {opacity: 0.3}
+    to {opacity: 1}
+}
+
+.project-modal-footer {
+    text-align: center;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: var(--dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.github-link:hover {
+    background: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .slide-wrapper {
+        height: 400px;
+    }
+    
+    .slide-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .slide-wrapper {
+        height: 300px;
+    }
+    
+    .project-modal-content {
+        padding: 20px;
+    }
+}
