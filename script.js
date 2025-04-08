@@ -233,12 +233,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links - FIXED VERSION
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             
-            const target = document.querySelector(this.getAttribute('href'));
+            const href = this.getAttribute('href');
+            // Check if href is just "#" and skip if it is
+            if (href === '#') return;
+            
+            const target = document.querySelector(href);
             if (target) {
                 window.scrollTo({
                     top: target.offsetTop,
@@ -257,142 +261,143 @@ document.addEventListener('DOMContentLoaded', function() {
             element.classList.add('active');
         }
     });
-});
-// Project modals with slideshow
-const projectBtns = document.querySelectorAll('.view-project-btn');
-const allModals = document.querySelectorAll('.modal');
-const allModalCloseButtons = document.querySelectorAll('.modal-close');
-
-if (projectBtns.length > 0) {
-    // Open project modal when clicking "View Project"
-    projectBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.getAttribute('data-modal');
-            const modal = document.getElementById(modalId);
-            
-            if (modal) {
-                // Open the modal
-                modal.classList.add('active');
-                console.log('Project modal opened:', modalId);
-                
-                // Initialize slideshow for this modal
-                initSlideshow(modal);
-            }
-        });
-    });
-
-    // Close modal when clicking the close button
-    allModalCloseButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            if (modal) {
-                modal.classList.remove('active');
-            }
-        });
-    });
-
-    // Close modal when clicking outside the modal content
-    allModals.forEach(modal => {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-            }
-        });
-    });
-
-    // Close modal with ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            allModals.forEach(modal => {
-                modal.classList.remove('active');
-            });
-        }
-    });
     
-    // Initialize slideshow functionality
-    function initSlideshow(modal) {
-        const slideWrapper = modal.querySelector('.slide-wrapper');
-        const slides = slideWrapper.querySelectorAll('.slide');
-        const prevArrow = modal.querySelector('.prev-arrow');
-        const nextArrow = modal.querySelector('.next-arrow');
-        const dotsContainer = modal.querySelector('.slide-dots');
-        
-        let currentSlide = 0;
-        
-        // Create dots based on number of slides
-        dotsContainer.innerHTML = '';
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('slide-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => showSlide(index));
-            dotsContainer.appendChild(dot);
+    // Project modals with slideshow - MOVED INSIDE DOM CONTENT LOADED
+    const projectBtns = document.querySelectorAll('.view-project-btn');
+    const allModals = document.querySelectorAll('.modal');
+    const allModalCloseButtons = document.querySelectorAll('.modal-close');
+
+    if (projectBtns.length > 0) {
+        // Open project modal when clicking "View Project"
+        projectBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                
+                if (modal) {
+                    // Open the modal
+                    modal.classList.add('active');
+                    console.log('Project modal opened:', modalId);
+                    
+                    // Initialize slideshow for this modal
+                    initSlideshow(modal);
+                }
+            });
         });
-        
-        // Show first slide initially
-        showSlide(0);
-        
-        // Next/previous controls
-        prevArrow.addEventListener('click', () => {
-            showSlide(currentSlide - 1);
+
+        // Close modal when clicking the close button
+        allModalCloseButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                }
+            });
         });
-        
-        nextArrow.addEventListener('click', () => {
-            showSlide(currentSlide + 1);
+
+        // Close modal when clicking outside the modal content
+        allModals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
         });
-        
-        // Keyboard navigation
-        modal.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') {
-                showSlide(currentSlide - 1);
-            } else if (e.key === 'ArrowRight') {
-                showSlide(currentSlide + 1);
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                allModals.forEach(modal => {
+                    modal.classList.remove('active');
+                });
             }
         });
         
-        // Function to show a specific slide
-        function showSlide(n) {
-            // Handle wrapping around
-            if (n >= slides.length) {
-                currentSlide = 0;
-            } else if (n < 0) {
-                currentSlide = slides.length - 1;
-            } else {
-                currentSlide = n;
+        // Initialize slideshow functionality
+        function initSlideshow(modal) {
+            const slideWrapper = modal.querySelector('.slide-wrapper');
+            const slides = slideWrapper.querySelectorAll('.slide');
+            const prevArrow = modal.querySelector('.prev-arrow');
+            const nextArrow = modal.querySelector('.next-arrow');
+            const dotsContainer = modal.querySelector('.slide-dots');
+            
+            let currentSlide = 0;
+            
+            // Create dots based on number of slides
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('slide-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => showSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Show first slide initially
+            showSlide(0);
+            
+            // Next/previous controls
+            prevArrow.addEventListener('click', () => {
+                showSlide(currentSlide - 1);
+            });
+            
+            nextArrow.addEventListener('click', () => {
+                showSlide(currentSlide + 1);
+            });
+            
+            // Keyboard navigation
+            modal.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    showSlide(currentSlide - 1);
+                } else if (e.key === 'ArrowRight') {
+                    showSlide(currentSlide + 1);
+                }
+            });
+            
+            // Function to show a specific slide
+            function showSlide(n) {
+                // Handle wrapping around
+                if (n >= slides.length) {
+                    currentSlide = 0;
+                } else if (n < 0) {
+                    currentSlide = slides.length - 1;
+                } else {
+                    currentSlide = n;
+                }
+                
+                // Hide all slides and remove active class from dots
+                slides.forEach(slide => slide.classList.remove('active'));
+                const dots = dotsContainer.querySelectorAll('.slide-dot');
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Show the current slide and activate the corresponding dot
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
             }
             
-            // Hide all slides and remove active class from dots
-            slides.forEach(slide => slide.classList.remove('active'));
-            const dots = dotsContainer.querySelectorAll('.slide-dot');
-            dots.forEach(dot => dot.classList.remove('active'));
+            // Enable swiping on touch devices
+            let touchStartX = 0;
+            let touchEndX = 0;
             
-            // Show the current slide and activate the corresponding dot
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-        
-        // Enable swiping on touch devices
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        slideWrapper.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-        
-        slideWrapper.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, false);
-        
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) {
-                // Swipe left, show next slide
-                showSlide(currentSlide + 1);
-            } else if (touchEndX > touchStartX + 50) {
-                // Swipe right, show previous slide
-                showSlide(currentSlide - 1);
+            slideWrapper.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            slideWrapper.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left, show next slide
+                    showSlide(currentSlide + 1);
+                } else if (touchEndX > touchStartX + 50) {
+                    // Swipe right, show previous slide
+                    showSlide(currentSlide - 1);
+                }
             }
         }
     }
-}
+});
