@@ -1,4 +1,4 @@
-// Initialize Particles.js
+// Initialize Particles.js and all other functionality
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed!');
     
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Scroll animations - Enhanced version with better detection
-    const animateElements = function() {
+    function animateElements() {
         console.log('Checking for elements to animate...');
         const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
         
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    };
+    }
 
     // Initial check for elements in viewport
     // Delay initial check to ensure DOM is ready and positioned correctly
@@ -235,19 +235,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Smooth scroll for anchor links - FIXED VERSION
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
+        anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            // Check if href is just "#" and skip if it is
-            if (href === '#') return;
             
-            const target = document.querySelector(href);
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop,
-                    behavior: 'smooth'
-                });
+            // Skip if it's a project modal trigger
+            if (this.classList.contains('view-project-btn')) {
+                return;
+            }
+            
+            // Check if href is just "#" and skip if it is
+            if (href === '#') {
+                e.preventDefault();
+                return;
+            }
+            
+            try {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            } catch (error) {
+                console.error('Invalid selector:', href);
             }
         });
     });
@@ -262,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Project modals with slideshow - MOVED INSIDE DOM CONTENT LOADED
+    // Project modals with slideshow
     const projectBtns = document.querySelectorAll('.view-project-btn');
     const allModals = document.querySelectorAll('.modal');
     const allModalCloseButtons = document.querySelectorAll('.modal-close');
@@ -313,90 +325,90 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         });
+    }
+    
+    // Initialize slideshow functionality
+    function initSlideshow(modal) {
+        const slideWrapper = modal.querySelector('.slide-wrapper');
+        const slides = slideWrapper.querySelectorAll('.slide');
+        const prevArrow = modal.querySelector('.prev-arrow');
+        const nextArrow = modal.querySelector('.next-arrow');
+        const dotsContainer = modal.querySelector('.slide-dots');
         
-        // Initialize slideshow functionality
-        function initSlideshow(modal) {
-            const slideWrapper = modal.querySelector('.slide-wrapper');
-            const slides = slideWrapper.querySelectorAll('.slide');
-            const prevArrow = modal.querySelector('.prev-arrow');
-            const nextArrow = modal.querySelector('.next-arrow');
-            const dotsContainer = modal.querySelector('.slide-dots');
-            
-            let currentSlide = 0;
-            
-            // Create dots based on number of slides
-            dotsContainer.innerHTML = '';
-            slides.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.classList.add('slide-dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => showSlide(index));
-                dotsContainer.appendChild(dot);
-            });
-            
-            // Show first slide initially
-            showSlide(0);
-            
-            // Next/previous controls
-            prevArrow.addEventListener('click', () => {
+        let currentSlide = 0;
+        
+        // Create dots based on number of slides
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('slide-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => showSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+        
+        // Show first slide initially
+        showSlide(0);
+        
+        // Next/previous controls
+        prevArrow.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+        
+        nextArrow.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+        
+        // Keyboard navigation
+        modal.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
                 showSlide(currentSlide - 1);
-            });
-            
-            nextArrow.addEventListener('click', () => {
+            } else if (e.key === 'ArrowRight') {
                 showSlide(currentSlide + 1);
-            });
-            
-            // Keyboard navigation
-            modal.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    showSlide(currentSlide - 1);
-                } else if (e.key === 'ArrowRight') {
-                    showSlide(currentSlide + 1);
-                }
-            });
-            
-            // Function to show a specific slide
-            function showSlide(n) {
-                // Handle wrapping around
-                if (n >= slides.length) {
-                    currentSlide = 0;
-                } else if (n < 0) {
-                    currentSlide = slides.length - 1;
-                } else {
-                    currentSlide = n;
-                }
-                
-                // Hide all slides and remove active class from dots
-                slides.forEach(slide => slide.classList.remove('active'));
-                const dots = dotsContainer.querySelectorAll('.slide-dot');
-                dots.forEach(dot => dot.classList.remove('active'));
-                
-                // Show the current slide and activate the corresponding dot
-                slides[currentSlide].classList.add('active');
-                dots[currentSlide].classList.add('active');
+            }
+        });
+        
+        // Function to show a specific slide
+        function showSlide(n) {
+            // Handle wrapping around
+            if (n >= slides.length) {
+                currentSlide = 0;
+            } else if (n < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = n;
             }
             
-            // Enable swiping on touch devices
-            let touchStartX = 0;
-            let touchEndX = 0;
+            // Hide all slides and remove active class from dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            const dots = dotsContainer.querySelectorAll('.slide-dot');
+            dots.forEach(dot => dot.classList.remove('active'));
             
-            slideWrapper.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-            
-            slideWrapper.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                if (touchEndX < touchStartX - 50) {
-                    // Swipe left, show next slide
-                    showSlide(currentSlide + 1);
-                } else if (touchEndX > touchStartX + 50) {
-                    // Swipe right, show previous slide
-                    showSlide(currentSlide - 1);
-                }
+            // Show the current slide and activate the corresponding dot
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+        
+        // Enable swiping on touch devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        slideWrapper.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        slideWrapper.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left, show next slide
+                showSlide(currentSlide + 1);
+            } else if (touchEndX > touchStartX + 50) {
+                // Swipe right, show previous slide
+                showSlide(currentSlide - 1);
             }
         }
     }
